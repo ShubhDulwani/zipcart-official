@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - ZIPCART</title>
+    <link rel="stylesheet" href="../css/profile.css">
+</head>
+<body>
+    <div class="container">
+        <div class="profile-card">
+            <div class="profile-avatar" id="userAvatar">
+                <div class="loading" id="loadingSpinner"></div>
+            </div>
+            
+            <div class="brand-title">ZIPCART</div>
+            <h1 class="profile-title">Your Profile</h1>
+            <p class="profile-subtitle">Welcome back to your account</p>
+            
+            <div class="user-email" id="userEmail">
+                <div class="loading"></div>
+            </div>
+            
+            <div class="actions">
+                <button class="btn btn-primary" onclick="editProfile()">Edit Profile</button>
+                <button class="btn btn-danger" id="logoutBtn">Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    function initializePage() {
+        const email = localStorage.getItem('email');
+        const loggedIn = localStorage.getItem('loggedIn');
+
+        if (loggedIn !== 'true' || !email) {
+            window.location.href = '../signin.html';
+            return;
+        }
+
+        userData.email = email;
+        userData.loggedIn = true;
+        updateUserInterface();
+    }
+
+    function updateUserInterface() {
+        const userEmailElement = document.getElementById('userEmail');
+        const userAvatarElement = document.getElementById('userAvatar');
+        const loadingSpinner = document.getElementById('loadingSpinner');
+
+        setTimeout(() => {
+            if (userData.email) {
+                userEmailElement.textContent = userData.email;
+                const initial = userData.email.charAt(0).toUpperCase();
+                loadingSpinner.style.display = 'none';
+                userAvatarElement.textContent = initial;
+            } else {
+                userEmailElement.textContent = 'No email found';
+                loadingSpinner.style.display = 'none';
+                userAvatarElement.textContent = '?';
+            }
+        }, 1000);
+    }
+
+    function editProfile() {
+        alert('Edit profile functionality would be implemented here');
+    }
+
+    function logout() {
+        localStorage.removeItem('loggedIn');
+        localStorage.removeItem('email');
+
+        const profileCard = document.querySelector('.profile-card');
+        profileCard.style.transform = 'scale(0.95)';
+        profileCard.style.opacity = '0.5';
+
+        setTimeout(() => {
+            window.location.href = '../index.html';
+        }, 300);
+    }
+
+    document.getElementById('logoutBtn').addEventListener('click', logout);
+
+    document.addEventListener('DOMContentLoaded', initializePage);
+
+    document.addEventListener('mousemove', (e) => {
+        const card = document.querySelector('.profile-card');
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const rotateX = (y - centerY) / 20;
+        const rotateY = (centerX - x) / 20;
+
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    });
+
+    document.addEventListener('mouseleave', () => {
+        const card = document.querySelector('.profile-card');
+        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FCART</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    
+    <img class="image-gradient" src="./images/gradient.png" alt="gradient">
+    <div class="layer-blur"></div>
+    
+    <div class="container">
+        <header>
+            <h1 class="logo"><a href="index.html" class="logo-link">ZIPCART</a></h1>
+                
+            <nav>
+                <a href="./html/products.html">PRODUCTS</a>
+                <a href="./html/cart.html">CART</a>
+                <a href="./html/checkout.html">CHECKOUT</a>
+                <a href="./html/aboutus.html">ABOUT US</a>
+            </nav>
+
+            
+            <button id="signinBtn" class="btn-signing">SIGN IN</button>
+<button id="logoutBtn" class="btn-signing" style="display:none;">LOGOUT</button>
+        </header>
+
+        <main>  
+            <div class="content">
+                
+                <div class="tag-box">
+                    <div class="tag">INTRODUCING &wedbar;</div>
+                </div>
+
+                <h1>SHOP SMART<br>LIVE BETTER</h1>
+
+                <p class="description">
+                    Tech, trends, and essentials — discover them all in one place
+                </p>
+
+                <div class="button">
+                    <a href="#" class="btn-get-started">Documentation &gt;</a>
+                    <a href="#" class="btn-signing-main">Get Started &gt;</a>
+                </div>
+                <div class="robot-container">
+                <spline-viewer class ="world-3d" url="https://prod.spline.design/xHLTkJuJAhPYogCC/scene.splinecode"></spline-viewer>
+                </div>
+            </div>
+            <script type="module" src="https://unpkg.com/@splinetool/viewer@1.10.15/build/spline-viewer.js"></script>
+            <script type="module" src="https://unpkg.com/@splinetool/viewer@1.10.15/build/spline-viewer.js"></script>
+<script>
+    const signInBtn = document.getElementById('signinBtn');
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    window.addEventListener('DOMContentLoaded', () => {
+        if (localStorage.getItem('loggedIn') === 'true') {
+            signInBtn.style.display = 'none';
+            logoutBtn.style.display = 'inline-block';
+        } else {
+            signInBtn.style.display = 'inline-block';
+            logoutBtn.style.display = 'none';
+        }
+    });
+
+    signInBtn.addEventListener('click', () => {
+    window.location.href = 'html/signin.html';
+    });
+
+    logoutBtn.addEventListener('click', () => {
+        localStorage.removeItem('loggedIn');
+        window.location.reload();
+    });
+</script>
+
+
+
+
+
+        </main>
+
+    </div>
+
+</body>
+</html>

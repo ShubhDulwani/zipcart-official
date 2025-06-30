@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - ZIPCART</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 50%, #0f0f0f 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Animated Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, #ff006e20 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, #8338ec20 0%, transparent 50%),
+                        radial-gradient(circle at 40% 80%, #3a86ff20 0%, transparent 50%);
+            animation: backgroundShift 20s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        @keyframes backgroundShift {
+            0%, 100% { transform: translateX(0) translateY(0); }
+            33% { transform: translateX(-30px) translateY(20px); }
+            66% { transform: translateX(30px) translateY(-20px); }
+        }
+
+        /* Header Styles */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            margin: 20px 0;
+            position: sticky;
+            top: 20px;
+            z-index: 100;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff006e, #8338ec, #3a86ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+            padding: 0 30px;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+            filter: brightness(1.2);
+        }
+
+        nav {
+            display: flex;
+            gap: 30px;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        nav a:hover::before {
+            left: 100%;
+        }
+
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-signing {
+            background: linear-gradient(45deg, #ff006e, #8338ec);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-right: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-signing:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(255, 0, 110, 0.4);
+        }
+
+        /* Main Content */
+        main {
+            padding: 40px 0;
+        }
+
+        .page-title {
+            text-align: center;
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin-bottom: 3rem;
+            background: linear-gradient(45deg, #ff006e, #8338ec, #3a86ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: titleGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes titleGlow {
+            0%, 100% { filter: drop-shadow(0 0 10px rgba(255, 0, 110, 0.5)); }
+            50% { filter: drop-shadow(0 0 20px rgba(131, 56, 236, 0.7)); }
+        }
+
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 40px;
+            padding: 20px 0;
+        }
+
+        .product-card {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 30px;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(255, 0, 110, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .product-card:hover::before {
+            opacity: 1;
+        }
+
+        .product-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            border-color: rgba(255, 0, 110, 0.5);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .product-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        .price {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ff006e;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px rgba(255, 0, 110, 0.5);
+        }
+
+        .product-card p:not(.price) {
+            color: #cccccc;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+        }
+
+        .btn-buy {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff006e, #8338ec);
+            color: white;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            margin-right: 15px;
+        }
+
+        .btn-buy::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-buy:hover::before {
+            left: 100%;
+        }
+
+        .btn-buy:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 0, 110, 0.4);
+        }
+
+        .btn-cart {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+        }
+
+        .btn-cart:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+        }
+
+        /* Floating particles */
+        .particle {
+            position: fixed;
+            pointer-events: none;
+            opacity: 0;
+            animation: float 6s linear infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) translateX(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Cart notification */
+        .cart-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(45deg, #00ff88, #00d4ff);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 10px 25px rgba(0, 255, 136, 0.3);
+        }
+
+        .cart-notification.show {
+            transform: translateX(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .product-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            header {
+                flex-direction: column;
+                gap: 20px;
+                padding: 30px 20px;
+            }
+            
+            nav {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+            
+            .page-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Loading animation */
+        .loading {
+            opacity: 0;
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="logo"><a href="../index.html" class="logo-link">ZIPCART</a></h1>
+            
+            <nav>
+                <a href="products.html">PRODUCTS</a>
+                <a href="cart.html">CART</a>
+                <a href="Checkout.html">CHECKOUT</a>
+                <a href="aboutus.html">ABOUT US</a>
+            </nav>
+            
+            <button id="signinBtn" class="btn-signing">SIGN IN</button>
+        </header>
+
+        <main>
+            <h1 class="page-title loading">Our Products</h1>
+            
+            <div class="product-grid">
+                <div class="product-card loading">
+                    <img src="../images/Screenshot 2025-06-27 040734.png" alt="ROG Flow Z13">
+                    <h3>ROG Flow Z13 GZ302EA-RU420WS</h3>
+                    <p class="price">₹99,009</p>
+                    <p>ROG Flow Z13, Gaming Laptop, AMD Ryzen AI MAX 390, AMD Radeon Graphics (32GB/1TB/34.03 cms (13.4) Touch 2.5K/Windows 11 Home/Office Home 2024 + M365 Basic (1 Year Validity)*)</p>
+                    <a href="product1-details.html" class="btn-buy">Buy Now</a>
+                    <button class="btn-cart" onclick="addToCart('ROG Flow Z13 GZ302EA-RU420WS', 99009)">Add to Cart</button>
+                </div>
+
+                <div class="product-card loading">
+                    <img src="../images/Screenshot 2025-06-27 041005.png" alt="ROG Zephyrus G14">
+                    <h3>ROG Zephyrus G14 GA403WR-QS123WS</h3>
+                    <p class="price">₹1,29,009</p>
+                    <p>ROG Zephyrus G14, Gaming Laptop, AMD Ryzen AI 9 HX 370, RTX 5070 Ti GPU (32GB/2TB/35.56 cms (14) 3K/Windows 11 Home/Office Home 2024 + M365 Basic (1 Year Validity)*)</p>
+                    <a href="product2-details.html" class="btn-buy">Buy Now</a>
+                    <button class="btn-cart" onclick="addToCart('ROG Zephyrus G14 GA403WR-QS123WS', 129009)">Add to Cart</button>
+                </div>
+
+                <div class="product-card loading">
+                    <img src="../images/Screenshot 2025-06-27 041154.png" alt="ROG Strix G16">
+                    <h3>ROG Strix G16 G614PH-RV033WS</h3>
+                    <p class="price">₹1,23,021</p>
+                    <p>ROG Strix G16, Gaming Laptop, AMD Ryzen 9 8940HX, RTX 5050 GPU (16GB/1TB/40.64 cms (16) FHD+/Windows 11 Home/Office Home 2024 + M365 Basic (1 Year Validity)*)</p>
+                    <a href="product3-details.html" class="btn-buy">Buy Now</a>
+                    <button class="btn-cart" onclick="addToCart('ROG Strix G16 G614PH-RV033WS', 123021)">Add to Cart</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="cart-notification" id="cartNotification">
+        Product added to cart! 🛒
+    </div>
+
+    <script>
+        // Cart functionality with memory storage (no localStorage)
+        let cart = [];
+
+        function addToCart(productName, price) {
+            cart.push({ name: productName, price: price });
+            showCartNotification();
+            console.log('Cart updated:', cart);
+        }
+
+        function showCartNotification() {
+            const notification = document.getElementById('cartNotification');
+            notification.classList.add('show');
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Create floating particles
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + 'vw';
+            particle.style.width = Math.random() * 10 + 5 + 'px';
+            particle.style.height = particle.style.width;
+            particle.style.background = `hsl(${Math.random() * 360}, 70%, 60%)`;
+            particle.style.borderRadius = '50%';
+            document.body.appendChild(particle);
+
+            setTimeout(() => {
+                particle.remove();
+            }, 6000);
+        }
+
+        // Create particles periodically
+        setInterval(createParticle, 2000);
+
+        // Loading animation
+        window.addEventListener('load', () => {
+            const loadingElements = document.querySelectorAll('.loading');
+            loadingElements.forEach((element, index) => {
+                setTimeout(() => {
+                    element.style.animationDelay = index * 0.2 + 's';
+                }, index * 100);
+            });
+        });
+
+        // Interactive card tilt effect
+        document.querySelectorAll('.product-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = (y - centerY) / 10;
+                const rotateY = (centerX - x) / 10;
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-15px) scale(1.02)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = '';
+            });
+        });
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Header background opacity on scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            const scrollTop = window.pageYOffset;
+            const opacity = Math.min(scrollTop / 100, 0.9);
+            header.style.background = `rgba(0, 0, 0, ${0.3 + opacity * 0.4})`;
+        });
+
+        const signInBtn = document.getElementById('signinBtn');
+
+    // Page load pe check karega
+    window.addEventListener('DOMContentLoaded', () => {
+        if (localStorage.getItem('loggedIn') === 'true') {
+            signInBtn.textContent = 'Profile';
+            signInBtn.addEventListener('click', () => {
+                window.location.href = 'profile.html'; // Profile page ka path daal
+            });
+        } else {
+            signInBtn.textContent = 'Sign In';
+            signInBtn.addEventListener('click', () => {
+                window.location.href = 'signin.html';
+            });
+        }
+    });
+
+    </script>
+</body>
+</html>

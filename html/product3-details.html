@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROG Flow Z13 - Product Details | ZIPCART</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 100%);
+            margin: 0;
+            padding: 0;
+            color: #e7e7e7;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Header Styles */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(90deg, #111 0%, #1a1a1a 100%);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            color: #fff;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(252, 163, 17, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+            text-shadow: 0 0 20px rgba(252, 163, 17, 0.6);
+        }
+
+        .logo a {
+            color: white;
+            text-decoration: none;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+        }
+
+        nav a {
+            color: #fff;
+            margin-left: 2rem;
+            text-decoration: none;
+            font-weight: 600;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: all 0.3s ease;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #fca311, #ff6b35);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #fca311;
+            transform: translateY(-2px);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Product Detail Container */
+        .product-detail-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
+            color: #e7e7e7;
+            padding: 3rem;
+            border-radius: 16px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3rem;
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.4),
+                0 0 0 1px rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            animation: slideUp 0.6s ease forwards;
+        }
+
+        .product-detail-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #fca311, transparent);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Product Images Section */
+        .product-images {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 300px;
+        }
+
+        .main-image-container {
+            position: relative;
+            margin-bottom: 1.5rem;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .product-images img:first-child {
+            width: 100%;
+            max-width: 450px;
+            height: auto;
+            background: #fff;
+            padding: 1rem;
+            border-radius: 12px;
+            transition: transform 0.3s ease;
+        }
+
+        .product-images img:first-child:hover {
+            transform: scale(1.02);
+        }
+
+        .thumbnail-row {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .thumbnail-row img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            cursor: pointer;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 0.3rem;
+            background: rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .thumbnail-row img:hover {
+            transform: scale(1.1) rotate(2deg);
+            border: 2px solid #fca311;
+            box-shadow: 0 5px 15px rgba(252, 163, 17, 0.3);
+        }
+
+        .thumbnail-row img.active {
+            border: 2px solid #fca311;
+            box-shadow: 0 0 0 2px rgba(252, 163, 17, 0.3);
+        }
+
+        /* Product Info Section */
+        .product-info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .product-info h1 {
+            font-size: 2.2rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #fff;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            color: #fca311;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .price {
+            font-size: 2rem;
+            color: #fca311;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 10px rgba(252, 163, 17, 0.3);
+        }
+
+        .strike {
+            color: #999;
+            text-decoration: line-through;
+            font-size: 1.2rem;
+            margin-left: 1rem;
+        }
+
+        .discount {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-left: 1rem;
+            font-weight: bold;
+        }
+
+        .product-info p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            color: #d0d0d0;
+        }
+
+        .product-info ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 2rem;
+        }
+
+        .product-info li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: #d0d0d0;
+            font-size: 1.05rem;
+        }
+
+        .product-info li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #fca311;
+            font-weight: bold;
+        }
+
+        /* Button Styles */
+        .btn-group {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .btn-cart, .btn-buy {
+            padding: 1.2rem 2.5rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            min-width: 180px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-cart::before, .btn-buy::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .btn-cart::after, .btn-buy::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+            transition: all 0.6s ease;
+            border-radius: 50%;
+        }
+
+        .btn-cart:hover::before, .btn-buy:hover::before {
+            left: 100%;
+        }
+
+        .btn-cart:hover::after, .btn-buy:hover::after {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-cart:active, .btn-buy:active {
+            transform: scale(0.98);
+        }
+
+        /* Add to Cart Button - Primary */
+        .btn-cart {
+            background: linear-gradient(135deg, #fca311 0%, #ff6b35 50%, #e85d04 100%);
+            color: #fff;
+            box-shadow: 
+                0 8px 25px rgba(252, 163, 17, 0.4),
+                0 0 0 1px rgba(255, 255, 255, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-cart:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 
+                0 12px 35px rgba(252, 163, 17, 0.6),
+                0 0 0 1px rgba(255, 255, 255, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            background: linear-gradient(135deg, #ff6b35 0%, #fca311 50%, #ffb627 100%);
+        }
+
+        .btn-cart:focus {
+            outline: none;
+            box-shadow: 
+                0 8px 25px rgba(252, 163, 17, 0.4),
+                0 0 0 3px rgba(252, 163, 17, 0.5);
+        }
+
+        /* Buy Now Button - Secondary */
+        .btn-buy {
+            background: linear-gradient(135deg, transparent 0%, rgba(252, 163, 17, 0.1) 100%);
+            color: #fca311;
+            border: 2px solid;
+            border-image: linear-gradient(45deg, #fca311, #ff6b35, #fca311) 1;
+            backdrop-filter: blur(15px);
+            box-shadow: 
+                0 4px 15px rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-buy::before {
+            background: linear-gradient(90deg, transparent, rgba(252, 163, 17, 0.2), transparent);
+        }
+
+        .btn-buy:hover {
+            background: linear-gradient(135deg, #fca311 0%, #ff6b35 100%);
+            color: #000;
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 
+                0 12px 35px rgba(252, 163, 17, 0.5),
+                0 0 0 1px rgba(255, 255, 255, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            border-image: linear-gradient(45deg, #ffb627, #ff6b35, #ffb627) 1;
+        }
+
+        .btn-buy:focus {
+            outline: none;
+            box-shadow: 
+                0 4px 15px rgba(0, 0, 0, 0.2),
+                0 0 0 3px rgba(252, 163, 17, 0.4);
+        }
+
+        /* Success State Animation */
+        .btn-cart.success, .btn-buy.success {
+            background: linear-gradient(135deg, #28a745, #20c997) !important;
+            transform: scale(1.05);
+        }
+
+        .btn-cart.success::after, .btn-buy.success::after {
+            content: '✓';
+            position: absolute;
+            font-size: 1.5rem;
+            animation: checkmark 0.6s ease;
+        }
+
+        @keyframes checkmark {
+            0% { transform: scale(0) rotate(0deg); opacity: 0; }
+            50% { transform: scale(1.2) rotate(180deg); opacity: 1; }
+            100% { transform: scale(1) rotate(360deg); opacity: 1; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .product-detail-container {
+                margin: 1rem;
+                padding: 1.5rem;
+                gap: 1.5rem;
+            }
+            
+            .product-images,
+            .product-info {
+                min-width: 100%;
+            }
+            
+            .product-info h1 {
+                font-size: 1.8rem;
+            }
+            
+            .price {
+                font-size: 1.5rem;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+                gap: 1.5rem;
+                margin-top: 2.5rem;
+            }
+            
+            .btn-cart, .btn-buy {
+                width: 100%;
+                padding: 1.4rem 2rem;
+                font-size: 1.2rem;
+                min-width: unset;
+                border-radius: 15px;
+            }
+            
+            .btn-cart:hover, .btn-buy:hover {
+                transform: translateY(-2px) scale(1.01);
+            }
+            
+            header {
+                padding: 1rem;
+            }
+            
+            nav a {
+                margin-left: 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .logo {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .thumbnail-row img {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .product-images img:first-child {
+                max-width: 100%;
+            }
+            
+            nav {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            nav a {
+                margin: 0;
+            }
+            
+            .btn-cart, .btn-buy {
+                padding: 1.6rem 1.5rem;
+                font-size: 1.1rem;
+                letter-spacing: 0.5px;
+            }
+            
+            .btn-group {
+                gap: 1.2rem;
+            }
+            
+            .product-detail-container {
+                padding: 1.2rem;
+                margin: 0.5rem;
+                border-radius: 12px;
+            }
+        }
+
+        /* Touch Device Optimizations */
+        @media (hover: none) and (pointer: coarse) {
+            .btn-cart, .btn-buy {
+                padding: 1.5rem 2rem;
+                font-size: 1.2rem;
+                touch-action: manipulation;
+            }
+            
+            .btn-cart:active, .btn-buy:active {
+                transform: scale(0.95);
+                transition: transform 0.1s ease;
+            }
+            
+            .btn-cart::before, .btn-buy::before {
+                display: none;
+            }
+            
+            .btn-cart::after, .btn-buy::after {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 class="logo"><a href="../index.html">ZIPCART</a></h1>
+        <nav>
+            <a href="products.html">PRODUCTS</a>
+                <a href="cart.html">CART</a>
+                <a href="Checkout.html">CHECKOUT</a>
+                <a href="aboutus.html">ABOUT US</a>
+        </nav>
+    </header>
+
+    <div class="product-detail-container">
+        <div class="product-images">
+            <div class="main-image-container">
+                <img id="mainImage" src="../images/Screenshot 2025-06-27 041154.png" alt="ROG Strix G16 G614PH-RV033WS">
+            </div>
+            <div class="thumbnail-row">
+                <img src="../images/Screenshot 2025-06-27 094334.png" alt="ROG Strix G16 G614PH-RV033WS - View 1" onclick="changeImage(this.src)">
+                <img src="../images/Screenshot 2025-06-27 095418.png" alt="ROG Strix G16 G614PH-RV033WS - View 2" onclick="changeImage(this.src)">
+                <img src="../images/Screenshot 2025-06-27 041154.png" alt="ROG Strix G16 G614PH-RV033WS - View 3" onclick="changeImage(this.src)">
+            </div>
+        </div>
+
+        <div class="product-info">
+            <h1>ROG Strix G16 G614PH-RV033WS</h1>
+            <div class="rating">★★★★☆ 4.5 (1,104 Ratings)</div>
+            <div class="price">
+                ₹98,980
+                <span class="strike">₹1,23,021</span> 
+                <span class="discount">20% off</span>
+            </div>
+
+            <p><strong>Specifications:</strong></p>
+            <ul>
+                <li>AMD Ryzen AI MAX 390 - Latest AI-powered processor</li>
+                <li>AMD Radeon Graphics - High-performance gaming graphics</li>
+                <li>32GB RAM / 1TB SSD - Lightning-fast performance and storage</li>
+                <li>13.4" 2.5K Touch Display - Crystal clear visuals with touch support</li>
+                <li>Windows 11 Home - Latest operating system with enhanced features</li>
+            </ul>
+
+            <div class="btn-group">
+                <button class="btn-cart" onclick="addToCart()">
+                    🛒 Add to Cart
+                </button>
+                <button class="btn-buy" onclick="buyNow()">
+                    ⚡ Buy Now
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function changeImage(src) {
+            const mainImage = document.getElementById('mainImage');
+            mainImage.src = src.replace('150&h=150', '500&h=400');
+            
+            // Update active thumbnail
+            document.querySelectorAll('.thumbnail-row img').forEach(img => {
+                img.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        function addToCart() {
+            const button = document.querySelector('.btn-cart');
+            const originalText = button.innerHTML;
+            
+            // Add loading state
+            button.classList.add('loading');
+            button.innerHTML = '🔄 Adding...';
+            button.disabled = true;
+            
+            // Simulate API call
+            setTimeout(() => {
+                const product = {
+                    id: 'rog-flow-z13',
+                    name: "ROG Flow Z13 Gaming Laptop",
+                    price: "₹99,009",
+                    originalPrice: "₹1,19,999",
+                    image: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500&h=400&fit=crop",
+                    quantity: 1
+                };
+
+                // Get existing cart or create new one
+                let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                
+                // Check if item already exists
+                const existingItem = cart.find(item => item.id === product.id);
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push(product);
+                }
+                
+                localStorage.setItem('cart', JSON.stringify(cart));
+                
+                // Show success state
+                button.classList.remove('loading');
+                button.classList.add('success');
+                button.innerHTML = '✓ Added to Cart!';
+                
+                // Reset button after 2 seconds
+                setTimeout(() => {
+                    button.classList.remove('success');
+                    button.innerHTML = originalText;
+                    button.disabled = false;
+                }, 2000);
+                
+                // Optional: Show notification
+                showNotification('Product added to cart successfully!');
+                
+            }, 1000);
+        }
+
+        function buyNow() {
+            const button = document.querySelector('.btn-buy');
+            const originalText = button.innerHTML;
+            
+            // Add visual feedback
+            button.innerHTML = '⚡ Processing...';
+            button.disabled = true;
+            
+            // Add to cart first, then redirect
+            const product = {
+                id: 'rog-flow-z13',
+                name: "ROG Flow Z13 Gaming Laptop",
+                price: "₹99,009",
+                originalPrice: "₹1,19,999",
+                image: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500&h=400&fit=crop",
+                quantity: 1
+            };
+
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart = [product]; // Replace cart with single item for buy now
+            localStorage.setItem('cart', JSON.stringify(cart));
+            
+            setTimeout(() => {
+                // In a real app, you would redirect to checkout
+                // window.location.href = 'checkout.html';
+                alert('Redirecting to checkout...');
+                button.innerHTML = originalText;
+                button.disabled = false;
+            }, 1500);
+        }
+
+        function showNotification(message) {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: linear-gradient(135deg, #28a745, #20c997);
+                color: white;
+                padding: 1rem 2rem;
+                border-radius: 8px;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+                z-index: 10000;
+                animation: slideIn 0.3s ease;
+            `;
+            notification.textContent = message;
+            
+            // Add animation keyframes
+            if (!document.querySelector('#notification-style')) {
+                const style = document.createElement('style');
+                style.id = 'notification-style';
+                style.textContent = `
+                    @keyframes slideIn {
+                        from { transform: translateX(100%); opacity: 0; }
+                        to { transform: translateX(0); opacity: 1; }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+            
+            document.body.appendChild(notification);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.style.animation = 'slideIn 0.3s ease reverse';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Initialize first thumbnail as active
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelector('.thumbnail-row img').classList.add('active');
+        });
+    </script>
+</body>
+</html>
