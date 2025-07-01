@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ROG Flow Z13 - Product Details | ZIPCART</title>
+    <title>ROG Zephyrus G14 - Product Details | ZIPCART</title>
     <style>
         /* Reset and Base Styles */
         * {
@@ -602,12 +602,21 @@
             
             // Simulate API call
             setTimeout(() => {
+                // FIXED: Get actual product details from the page
+                const productName = document.querySelector('.product-info h1').textContent;
+                const priceText = document.querySelector('.price').firstChild.textContent.trim();
+                const originalPriceText = document.querySelector('.strike').textContent;
+                const mainImage = document.getElementById('mainImage').src;
+                
+                // Extract numeric price (remove ₹ and commas)
+                const price = parseInt(priceText.replace(/[₹,]/g, ''));
+                
                 const product = {
-                    id: 'rog-flow-z13',
-                    name: "ROG Flow Z13 Gaming Laptop",
-                    price: "₹99,009",
-                    originalPrice: "₹1,19,999",
-                    image: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500&h=400&fit=crop",
+                    id: 'rog-zephyrus-g14-ga403wr', // Unique ID for this specific product
+                    name: productName,
+                    price: price,
+                    originalPrice: originalPriceText,
+                    image: mainImage,
                     quantity: 1
                 };
 
@@ -650,13 +659,21 @@
             button.innerHTML = '⚡ Processing...';
             button.disabled = true;
             
-            // Add to cart first, then redirect
+            // Get actual product details from the page
+            const productName = document.querySelector('.product-info h1').textContent;
+            const priceText = document.querySelector('.price').firstChild.textContent.trim();
+            const originalPriceText = document.querySelector('.strike').textContent;
+            const mainImage = document.getElementById('mainImage').src;
+            
+            // Extract numeric price (remove ₹ and commas)
+            const price = parseInt(priceText.replace(/[₹,]/g, ''));
+            
             const product = {
-                id: 'rog-flow-z13',
-                name: "ROG Flow Z13 Gaming Laptop",
-                price: "₹99,009",
-                originalPrice: "₹1,19,999",
-                image: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500&h=400&fit=crop",
+                id: 'rog-zephyrus-g14-ga403wr', // Unique ID for this specific product
+                name: productName,
+                price: price,
+                originalPrice: originalPriceText,
+                image: mainImage,
                 quantity: 1
             };
 

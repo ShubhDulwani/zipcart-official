@@ -334,49 +334,94 @@
     </div>
 
     <script>
-    document.getElementById('signinForm').addEventListener('submit', async function(e) {
-        e.preventDefault();
-        const btn = document.querySelector('.signin-btn');
-        const originalText = btn.textContent;
-        
-        btn.textContent = 'Signing in...';
-        btn.style.opacity = '0.7';
+        // Create background particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
 
-        const email = document.getElementById('email').value.trim();
-        const password = document.getElementById('password').value.trim();
+        // Initialize particles on page load
+        document.addEventListener('DOMContentLoaded', createParticles);
 
-        try {
-            const res = await fetch('http://localhost:5000/signin', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, password })
-            });
+        document.getElementById('signinForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const btn = document.querySelector('.signin-btn');
+            const originalText = btn.textContent;
+            
+            btn.textContent = 'Signing in...';
+            btn.style.opacity = '0.7';
 
-            const data = await res.json();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value.trim();
 
-            if (res.ok) {
-                // Yeh line add karo for session tracking
-                localStorage.setItem('loggedIn', 'true');
-                
-                btn.textContent = 'Success!';
-                btn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
-                setTimeout(() => {
-                    window.location.href = 'products.html';
-                }, 1000);
-            } else {
+            try {
+                const res = await fetch('http://localhost:5000/signin', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await res.json();
+
+                if (res.ok) {
+                    // Store all necessary user information
+                    localStorage.setItem('loggedIn', 'true');
+                    localStorage.setItem('userEmail', email);
+                    localStorage.setItem('email', email); // Backup key
+                    
+                    // Extract name from server response or use email prefix as fallback
+                    const userName = data.name || data.user?.name || email.split('@')[0];
+                    localStorage.setItem('userName', userName);
+                    localStorage.setItem('name', userName); // Backup key
+                    
+                    btn.textContent = 'Success!';
+                    btn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+                    
+                    setTimeout(() => {
+                        window.location.href = 'products.html';
+                    }, 1000);
+                } else {
+                    btn.textContent = 'Sign In';
+                    btn.style.opacity = '1';
+                    btn.style.background = 'linear-gradient(135deg, #4f46e5, #7c3aed)';
+                    alert(data.message || 'Sign in failed. Please try again.');
+                }
+            } catch (err) {
+                console.error('Sign in error:', err);
                 btn.textContent = 'Sign In';
                 btn.style.opacity = '1';
                 btn.style.background = 'linear-gradient(135deg, #4f46e5, #7c3aed)';
-                alert(data.message);
+                alert('Server error, please try again later.');
             }
-        } catch (err) {
-            btn.textContent = 'Sign In';
-            btn.style.opacity = '1';
-            btn.style.background = 'linear-gradient(135deg, #4f46e5, #7c3aed)';
-            alert('Server error, please try again later.');
-        }
-    });
-</script>
+        });
 
+        // Handle social sign-ins (placeholder functionality)
+        document.getElementById('googleBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('Google sign-in would be implemented here');
+        });
+
+        document.getElementById('appleBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('Apple sign-in would be implemented here');
+        });
+
+        document.getElementById('forgotLink').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('Password reset functionality would be implemented here');
+        });
+
+        document.getElementById('signupLink').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = 'signup.html';
+        });
+    </script>
 </body>
 </html>
