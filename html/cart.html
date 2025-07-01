@@ -539,10 +539,19 @@
     <script>
         class ShoppingCart {
             constructor() {
-                this.cart = JSON.parse(localStorage.getItem('cart')) || [];
+                this.cart = this.loadCart();
                 this.discount = 0;
                 this.promoApplied = false;
                 this.init();
+            }
+
+            loadCart() {
+                const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+                // Ensure all prices are numbers
+                return cartItems.map(item => ({
+                    ...item,
+                    price: typeof item.price === 'number' ? item.price : parseFloat(item.price.replace(/[^0-9.-]+/g,""))
+                }));
             }
 
             init() {
@@ -593,7 +602,6 @@
             updateQuantity(id, newQuantity) {
                 if (newQuantity < 1) return;
                 
-                // FIXED: Use string comparison for ID matching
                 const item = this.cart.find(item => item.id === id);
                 if (item) {
                     item.quantity = newQuantity;
@@ -605,14 +613,12 @@
             }
 
             removeItem(id) {
-                // FIXED: Use string comparison for ID matching
                 const item = this.cart.find(item => item.id === id);
                 const itemElement = document.querySelector(`[data-id="${id}"]`);
                 
                 if (itemElement) {
                     itemElement.classList.add('removing');
                     setTimeout(() => {
-                        // FIXED: Use string comparison for filtering
                         this.cart = this.cart.filter(item => item.id !== id);
                         this.saveCart();
                         this.renderCart();
@@ -631,7 +637,7 @@
 
                 document.getElementById('item-count').textContent = itemCount;
                 document.getElementById('subtotal').textContent = `₹${subtotal.toLocaleString()}`;
-                document.getElementById('shipping').textContent = shipping === 0 ? 'Free' : `₹${shipping}`;
+                document.getElementById('shipping').textContent = shipping === 0 ? 'Free' : `₹${shipping.toLocaleString()}`;
                 document.getElementById('tax').textContent = `₹${tax.toLocaleString()}`;
                 document.getElementById('total-price').textContent = `₹${total.toLocaleString()}`;
 
@@ -708,7 +714,7 @@
 
                     this.promoApplied = true;
                     this.updateSummary();
-                    this.showToast(`Promo code "${promoCode}" applied! You saved ₹${this.discount}`, 'success');
+                    this.showToast(`Promo code "${promoCode}" applied! You saved ₹${this.discount.toLocaleString()}`, 'success');
                     document.getElementById('promo-code').disabled = true;
                     document.querySelector('.btn-apply').textContent = 'Applied';
                     document.querySelector('.btn-apply').disabled = true;
@@ -735,7 +741,6 @@
             }
 
             showToast(message, type = 'success') {
-                // Remove existing toast
                 const existingToast = document.querySelector('.toast');
                 if (existingToast) {
                     existingToast.remove();
