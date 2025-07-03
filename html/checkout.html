@@ -179,11 +179,13 @@
     </div>
 
     <script>
-        // Sample cart data (in real app, this would come from localStorage or API)
-        let cart = [
-            { name: 'ROG Flow Z13 GZ302EA-RU420WS', price: 99009 },
-            { name: 'ROG Zephyrus G14 GA403WR-QS123WS', price: 129009 }
-        ];
+        // Load cart data from localStorage
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        // Ensure all items have proper structure
+        cart = cart.map(item => ({
+            ...item,
+            price: typeof item.price === 'number' ? item.price : parseFloat(item.price.replace(/[^0-9.-]+/g,""))
+        }));
 
         // Initialize checkout page
         function initCheckout() {
@@ -214,7 +216,7 @@
                 <div class="cart-item">
                     <div class="item-info">
                         <div class="item-name">${item.name}</div>
-                        <div class="item-price">₹${item.price.toLocaleString()}</div>
+                        <div class="item-price">₹${item.price.toLocaleString()} × ${item.quantity}</div>
                     </div>
                     <button class="remove-btn" onclick="removeFromCart(${index})">×</button>
                 </div>
@@ -224,24 +226,20 @@
         // Remove item from cart
         function removeFromCart(index) {
             cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
             loadCartItems();
             calculateTotals();
-            
-            // Add animation
-            setTimeout(() => {
-                loadCartItems();
-            }, 300);
         }
 
         // Calculate totals
         function calculateTotals() {
-            const subtotal = cart.reduce((sum, item) => sum + item.price, 0);
-            const shipping = cart.length > 0 ? 99 : 0;
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const shipping = cart.length > 0 ? (subtotal > 1000 ? 0 : 99) : 0;
             const tax = Math.round(subtotal * 0.18);
             const total = subtotal + shipping + tax;
 
             document.getElementById('subtotal').textContent = `₹${subtotal.toLocaleString()}`;
-            document.getElementById('shipping').textContent = `₹${shipping}`;
+            document.getElementById('shipping').textContent = shipping === 0 ? 'Free' : `₹${shipping}`;
             document.getElementById('tax').textContent = `₹${tax.toLocaleString()}`;
             document.getElementById('total').textContent = `₹${total.toLocaleString()}`;
         }
@@ -289,6 +287,7 @@
 
         // Validate form
         function validateForm() {
+            const form = document.getElementById('checkoutForm');
             const requiredFields = form.querySelectorAll('[required]');
             let isValid = true;
 
@@ -357,4 +356,50 @@
                 let formattedValue = value.replace(/(.{4})/g, '$1 ').trim();
                 e.target.value = formattedValue;
             });
+
+            expiryDate.addEventListener('input', (e) => {
+                let value = e.target.value.replace(/\D/g, '');
+                if (value.length >= 2) {
+                    value = value.substring(0, 2) + '/' + value.substring(2, 4);
+                }
+                e.target.value = value;
+            });
         }
+
+        // Process order
+        function processOrder() {
+            const total = document.getElementById('total').textContent;
+            
+            // Show loading state
+            const submitBtn = document.querySelector('button[type="submit"]');
+            submitBtn.textContent = 'Processing...';
+            submitBtn.disabled = true;
+            
+            // Simulate order processing
+            setTimeout(() => {
+                // Generate order ID
+                const orderId = 'ZC' + Date.now().toString().slice(-8);
+                document.getElementById('orderId').textContent = orderId;
+                
+                // Show success modal
+                document.getElementById('successModal').style.display = 'flex';
+                
+                // Clear cart after successful order
+                localStorage.removeItem('cart');
+            }, 2000);
+        }
+
+        // Go back to cart
+        function goBack() {
+            window.location.href = 'cart.html';
+        }
+
+        // Close modal and redirect
+        function closeModal() {
+            document.getElementById('successModal').style.display = 'none';
+            window.location.href = '../index.html';
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', initCheckout);
+</script>
