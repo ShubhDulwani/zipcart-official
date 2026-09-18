@@ -3,6 +3,7 @@
 ZIPCART is a full-stack e-commerce web application built using Node.js, Express.js, MongoDB, and Vanilla JavaScript.  
 The project implements core e-commerce functionalities such as authentication, product listing, and shopping cart management.
 
+zipcartofficial.netlify.app
 ---
 
 ## 🚀 Features
